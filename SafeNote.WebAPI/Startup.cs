@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Amazon.DynamoDBv2;
+using Amazon.DynamoDBv2.DataModel;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -27,6 +29,9 @@ namespace SafeNote.WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddSwaggerGen();
+            services.AddTransient<IAmazonDynamoDB,AmazonDynamoDBClient>();
+            services.AddTransient<IDynamoDBContext,DynamoDBContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline
@@ -37,11 +42,16 @@ namespace SafeNote.WebAPI
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseSwagger(x => x.SerializeAsV2 = true);
+            app.UseSwaggerUI();
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 
             app.UseEndpoints(endpoints =>
             {

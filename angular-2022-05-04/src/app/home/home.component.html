@@ -1,0 +1,33 @@
+<div class="container">
+    <div *ngIf="url==''">
+        <div class="row">
+
+            <div class="col text-center">
+                <textarea name="data" id="data" cols="80" rows="10" [(ngModel)]="pd.data"></textarea><br>
+                <div>
+                    <button class="btn btn-primary" (click)="submit()">
+                        Get URL
+                        <div class="spinner-border spinner-border-sm text-info" role="status" *ngIf="loading">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </button>
+                </div>
+            </div>
+            <div class="col text-start">
+                <div class="lead">Generate a self destructing encrypted note</div>
+                <p>
+                    This site creates an encrypted note, only readable with the generated URL, and can only be read
+                    once. Once the note has been read, it's deleted from the system.
+                </p>
+                <p>For more information see <a [routerLink]="['/about']">About</a>.</p>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="url != ''">
+        <div>
+            <a href="/{{url}}">Safe Link</a>
+        </div>
+        <button class="btn btn-secondary" (click)="reset()">Create Another</button>
+    </div>
+</div>

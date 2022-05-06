@@ -1,0 +1,20 @@
+<div class="container">
+
+    <h2>Technical Details</h2>
+    <p>
+        <b>HTTPS</b> - All communications utilize HTTPS encryption for security.
+    </p>
+    <p>
+        <b>AES128</b> - The note is stored in the database using AES - 128 bit encryption. AES uses a key and an <abbr title="Initialization Vector">IV</abbr>.
+        Neither the key nor IV are stored in the DB. They only exist in the generated URL.
+    </p>
+
+    <p>
+        <b>SHA256</b> - The note's database id is a SHA, 256 bit, non-reversable, hash of the IV and key.
+    </p>
+
+    <p>
+        When retrieving a note, the IV and key are hashed with SHA1 to generate the db key. The note is read from the DB, and then deleted.
+        The IV, combined with the key, are used to decrypt the note.
+    </p>
+</div>
