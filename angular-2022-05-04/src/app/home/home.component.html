@@ -2,6 +2,14 @@
     <div *ngIf="url==''">
         <div class="row">
 
+            <div class="col order-lg-2 text-start">
+                <div class="lead">Generate a self destructing encrypted note</div>
+                <p>
+                    This site creates an encrypted note, only readable with the generated URL, and can only be read
+                    once. Once the note has been read, it's deleted from the system.
+                </p>
+                <p>For more information see <a [routerLink]="['/about']">About</a>.</p>
+            </div>
             <div class="col text-center">
                 <textarea name="data" id="data" cols="80" rows="10" [(ngModel)]="pd.data"></textarea><br>
                 <div>
@@ -12,14 +20,6 @@
                         </div>
                     </button>
                 </div>
-            </div>
-            <div class="col text-start">
-                <div class="lead">Generate a self destructing encrypted note</div>
-                <p>
-                    This site creates an encrypted note, only readable with the generated URL, and can only be read
-                    once. Once the note has been read, it's deleted from the system.
-                </p>
-                <p>For more information see <a [routerLink]="['/about']">About</a>.</p>
             </div>
         </div>
     </div>

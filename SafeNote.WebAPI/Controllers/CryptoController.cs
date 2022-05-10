@@ -9,8 +9,9 @@ using System.Threading.Tasks;
 using Amazon.DynamoDBv2.DataModel;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using SafeNote.WebAPI.Domain;
+using SafeNote.WebAPI.DTOs;
 
 namespace SafeNote.WebAPI.Controllers
 {
@@ -19,26 +20,9 @@ namespace SafeNote.WebAPI.Controllers
     {
         private readonly IDynamoDBContext _context;
 
-        [DynamoDBTable("safenote-2022-05-04")]
-        public class Note
-        {
-            [DynamoDBHashKey]
-            public string Id { get; set; }
-
-            public string Data { get; set; }
-
-            public DateTime Created { get; set; } = DateTime.UtcNow;
-        }
-
         public CryptoController(IDynamoDBContext context)
         {
             _context = context;
-        }
-
-        public class ReadData
-        {
-            public string Key { get; set; }
-            public string IV { get; set; }
         }
 
         [HttpPost("read")]
@@ -62,26 +46,6 @@ namespace SafeNote.WebAPI.Controllers
             return Ok(data);
         }
 
-        private string GetId(byte[] iv, byte[] key)
-        {
-            using var hash = SHA256.Create();
-
-            using var ms = new MemoryStream();
-
-            using (var cs = new CryptoStream(ms, hash, CryptoStreamMode.Write))
-            {
-                cs.Write(iv, 0, iv.Length);
-                cs.Write(key, 0, key.Length);
-            }
-
-            return Convert.ToBase64String(ms.ToArray());
-        }
-
-        public class PostData
-        {
-            public string Data { get; set; }
-        }
-
         [HttpPost("create")]
         [ProducesResponseType(200, Type = typeof(string))]
         public async Task<IActionResult> Post([FromBody] PostData data)
@@ -102,6 +66,21 @@ namespace SafeNote.WebAPI.Controllers
             var ivs = Encode(iv);
 
             return Ok($"{ks}?i={ivs}");
+        }
+
+        private string GetId(byte[] iv, byte[] key)
+        {
+            using var hash = SHA256.Create();
+
+            using var ms = new MemoryStream();
+
+            using (var cs = new CryptoStream(ms, hash, CryptoStreamMode.Write))
+            {
+                cs.Write(iv, 0, iv.Length);
+                cs.Write(key, 0, key.Length);
+            }
+
+            return Convert.ToBase64String(ms.ToArray());
         }
 
         string Encode(byte[] data)
