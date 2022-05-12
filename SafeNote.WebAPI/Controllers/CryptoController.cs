@@ -27,12 +27,12 @@ namespace SafeNote.WebAPI.Controllers
 
         [HttpPost("read")]
         [ProducesResponseType(200, Type = typeof(string))]
-        public async Task<IActionResult> Get([FromBody] ReadData readData)
+        public async Task<IActionResult> Read([FromBody] ReadData readData)
         {
             var key = Decode(readData.Key);
             var iv = Decode(readData.IV);
 
-            var id = GetId(iv, key);
+            var id = BuildId(iv, key);
             
             var note = await _context.LoadAsync<Note>(id);
             if (note == null) return NotFound();
@@ -48,11 +48,11 @@ namespace SafeNote.WebAPI.Controllers
 
         [HttpPost("create")]
         [ProducesResponseType(200, Type = typeof(string))]
-        public async Task<IActionResult> Post([FromBody] PostData data)
+        public async Task<IActionResult> Create([FromBody] PostData data)
         {
             var enc = Encrypt(data.Data, out var key, out var iv);
 
-            var id = GetId(iv, key);
+            var id = BuildId(iv, key);
 
             var note = new Note
             {
@@ -68,7 +68,7 @@ namespace SafeNote.WebAPI.Controllers
             return Ok($"{ks}?i={ivs}");
         }
 
-        private string GetId(byte[] iv, byte[] key)
+        private string BuildId(byte[] iv, byte[] key)
         {
             using var hash = SHA256.Create();
 
