@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CryptoService } from '../api/services';
+import { CryptoService, ShortenerService } from '../api/services';
 import { PostData } from '../api/models';
 
 @Component({
@@ -9,20 +9,29 @@ import { PostData } from '../api/models';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private cryptoSvc : CryptoService) { }
+  constructor(private cryptoSvc : CryptoService, private shortSvc : ShortenerService) { }
 
-  pd : PostData = { data: '' };
+  data : string = '';
   url : string = '';
   loading : boolean = false;
+  loadingShort : boolean = false;
 
   ngOnInit(): void {
   }
 
   submit() : void  {
     this.loading = true;
-    this.cryptoSvc.postApiCryptoCreate(this.pd).subscribe(x => {
+    this.cryptoSvc.postApiCryptoCreate({ data : this.data }).subscribe(x => {
       this.url = x;
       this.loading = false;
+    });
+  }
+
+  submitShort() : void  {
+    this.loadingShort = true;
+    this.shortSvc.postApiShortenerCreate({ data : this.data }).subscribe(x => {
+      this.url = 's/' + x;
+      this.loadingShort = false;
     });
   }
 

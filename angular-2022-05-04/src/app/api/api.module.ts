@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ApiConfiguration, ApiConfigurationInterface } from './api-configuration';
 
 import { CryptoService } from './services/crypto.service';
+import { ShortenerService } from './services/shortener.service';
 
 /**
  * Provider for all Api services, plus ApiConfiguration
@@ -18,7 +19,8 @@ import { CryptoService } from './services/crypto.service';
   declarations: [],
   providers: [
     ApiConfiguration,
-    CryptoService
+    CryptoService,
+    ShortenerService
   ],
 })
 export class ApiModule {

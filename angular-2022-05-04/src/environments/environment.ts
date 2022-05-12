@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  rootUrl: 'https://csxled7flk.execute-api.us-east-1.amazonaws.com/Prod'
-  // rootUrl: 'https://localhost:44342'
+  // rootUrl: 'https://csxled7flk.execute-api.us-east-1.amazonaws.com/Prod'
+  rootUrl: 'https://localhost:44342'
 };
 
 /*

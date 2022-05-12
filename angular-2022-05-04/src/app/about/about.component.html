@@ -1,11 +1,13 @@
 <div class="container">
 
+    <h1>Long URLs</h1>
     <h2>Technical Details</h2>
     <p>
         <b>HTTPS</b> - All communications utilize HTTPS encryption for security.
     </p>
     <p>
-        <b>AES128</b> - The note is stored in the database using AES - 128 bit encryption. AES uses a key and an <abbr title="Initialization Vector">IV</abbr>.
+        <b>AES128</b> - The note is stored in the database using AES - 128 bit encryption. AES uses a key and an <abbr
+            title="Initialization Vector">IV</abbr>.
         Neither the key nor IV are stored in the DB. They only exist in the generated URL.
     </p>
 
@@ -14,7 +16,32 @@
     </p>
 
     <p>
-        When retrieving a note, the IV and key are hashed with SHA1 to generate the db key. The note is read from the DB, and then deleted.
+        When retrieving a note, the IV and key are hashed with SHA256 to generate the db key. The note is read from the
+        DB, and then deleted.
         The IV, combined with the key, are used to decrypt the note.
     </p>
+
+    <h1>Short Urls</h1>
+    <h2>Technical Details</h2>
+    <p>
+        <b>HTTPS</b> - All communications utilize HTTPS encryption for security.
+    </p>
+    <p>
+        <b>AES128</b> - The contents are stored in the database using AES.
+        Neither the key nor IV are stored in the DB.
+        The key and IV are generated using <b>PBKDF2</b> from the password in the generated URL.
+    </p>
+    <p>
+        <b>PBKDF2</b> - A random 8 character (48 bit) password is created, and a random salt is used to derive the key
+        and IV for AES. The salt is stored in the db, and the key only exists in the generated URL.
+    </p>
+    <p>
+        <b>SHA256</b> - The note's database id is a SHA, 256 bit, non-reversable hash of the password.
+    </p>
+    <p>
+        When retrieving a note, the password is hashed with SHA1 to generate the DB key. The note is read from the DB,
+        and then deleted.
+        The password is combined with the stored salt, to derive the AES key and IV, which are used to decrypt the note.
+    </p>
+
 </div>

@@ -11,11 +11,17 @@
                 <p>For more information see <a [routerLink]="['/about']">About</a>.</p>
             </div>
             <div class="col text-center">
-                <textarea name="data" id="data" cols="80" rows="10" [(ngModel)]="pd.data"></textarea><br>
+                <textarea name="data" id="data" cols="80" rows="10" [(ngModel)]="data"></textarea><br>
                 <div>
-                    <button class="btn btn-primary" (click)="submit()">
+                    <button class="btn btn-primary mx-2" (click)="submit()">
                         Get URL
                         <div class="spinner-border spinner-border-sm text-info" role="status" *ngIf="loading">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </button>
+                    <button class="btn btn-primary mx-2" (click)="submitShort()">
+                        Get Short URL
+                        <div class="spinner-border spinner-border-sm text-info" role="status" *ngIf="loadingShort">
                             <span class="visually-hidden">Loading...</span>
                         </div>
                     </button>

@@ -9,13 +9,15 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { NoteViewComponent } from './note-view/note-view.component';
 import { AboutComponent } from './about/about.component';
+import { ShortViewComponent } from './short-view/short-view.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     NoteViewComponent,
-    AboutComponent
+    AboutComponent,
+    ShortViewComponent
   ],
   imports: [
     BrowserModule,
