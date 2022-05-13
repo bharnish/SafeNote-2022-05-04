@@ -3,6 +3,7 @@ import { NgModule, ModuleWithProviders } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { ApiConfiguration, ApiConfigurationInterface } from './api-configuration';
 
+import { CodeService } from './services/code.service';
 import { CryptoService } from './services/crypto.service';
 import { ShortenerService } from './services/shortener.service';
 
@@ -19,6 +20,7 @@ import { ShortenerService } from './services/shortener.service';
   declarations: [],
   providers: [
     ApiConfiguration,
+    CodeService,
     CryptoService,
     ShortenerService
   ],

@@ -1,0 +1,22 @@
+<div class="container">
+    <div *ngIf="!loaded" class="text-center col-lg-4 offset-lg-4 col-12">
+        <div class="form-floating">
+            <input type="password" name="code" [(ngModel)]="code" class="form-control" id="code" placeholder="Code">
+            <label for="code">Code</label>
+        </div>
+        <button class="btn btn-primary mt-3" (click)="load()">Load</button>
+    </div>
+    
+    <div *ngIf="loaded">
+        <textarea name="data" id="data" cols="80" rows="10" [(ngModel)]="data"></textarea><br>
+        <button class="btn btn-primary" (click)="save()">Save</button>
+        <button class="btn btn-danger" (click)="delete()">Delete</button>
+    </div>
+
+    <div *ngIf="saved" class="alert alert-success">
+        Saved.
+    </div>
+    <div *ngIf="deleted" class="alert alert-danger">
+        Deleted.
+    </div>
+</div>

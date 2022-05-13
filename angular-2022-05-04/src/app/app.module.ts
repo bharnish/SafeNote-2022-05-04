@@ -10,6 +10,7 @@ import { HomeComponent } from './home/home.component';
 import { NoteViewComponent } from './note-view/note-view.component';
 import { AboutComponent } from './about/about.component';
 import { ShortViewComponent } from './short-view/short-view.component';
+import { CodeViewComponent } from './code-view/code-view.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { ShortViewComponent } from './short-view/short-view.component';
     HomeComponent,
     NoteViewComponent,
     AboutComponent,
-    ShortViewComponent
+    ShortViewComponent,
+    CodeViewComponent
   ],
   imports: [
     BrowserModule,
