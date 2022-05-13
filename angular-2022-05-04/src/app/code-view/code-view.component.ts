@@ -13,8 +13,8 @@ export class CodeViewComponent implements OnInit {
   code : string = '';
   loaded : boolean = false;
   data : string = '';
-  saved : boolean = false;
-  deleted : boolean = false;
+  saving : boolean = false;
+  deleting : boolean = false;
   loading : boolean = false;
 
   ngOnInit(): void {
@@ -30,18 +30,16 @@ export class CodeViewComponent implements OnInit {
   }
 
   save() {
-    this.saved = false;
-    this.deleted = false;
+    this.saving = true;
     this.svc.putApiCodeCode({ code : this.code, body : { data: this.data }}).subscribe(x => {
-      this.saved = true;
+      this.saving = false;
     });
   }
 
   delete()  {
-    this.saved = false;
-    this.deleted = false;
+    this.deleting = true;
     this.svc.deleteApiCodeCode(this.code).subscribe(x => {
-      this.deleted = true;
+      this.deleting = false;
     });
   }
 

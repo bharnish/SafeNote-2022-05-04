@@ -74,7 +74,7 @@ namespace SafeNote.WebAPI.Controllers
         string Encrypt(string data, string code, out string salt)
         {
             using var rng = RandomNumberGenerator.Create();
-            var saltBytes = rng.GetBytes(18);
+            var saltBytes = rng.GetBytes(12);
             salt = Utils.Encode(saltBytes);
 
             using var pbkdf = new Rfc2898DeriveBytes(code, saltBytes, 10_000);

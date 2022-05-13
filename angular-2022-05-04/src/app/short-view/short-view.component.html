@@ -1,6 +1,5 @@
 <div class="container">
-
-    <div *ngIf="data == ''" class="text-center">
+    <div *ngIf="data == ''; else Loaded" class="text-center">
         <div class="m-5">
             <div class="border shadow p-5 bg-warning">
                 <h1>This note will self destruct</h1>
@@ -17,8 +16,10 @@
             Note not found. It must have been read and deleted already.
         </div>
     </div>
+</div>
 
-    <div *ngIf="data != ''">
+<ng-template #Loaded>
+    <div>
         <div class="row">
             <div class="col">
                 <textarea name="data" id="data" cols="80" rows="10" [(ngModel)]="data"></textarea><br>
@@ -29,4 +30,4 @@
             </div>
         </div>
     </div>
-</div>
+</ng-template>

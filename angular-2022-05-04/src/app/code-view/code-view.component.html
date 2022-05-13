@@ -1,22 +1,58 @@
 <div class="container">
-    <div *ngIf="!loaded" class="text-center col-lg-4 offset-lg-4 col-12">
-        <div class="form-floating">
-            <input type="password" name="code" [(ngModel)]="code" class="form-control" id="code" placeholder="Code">
-            <label for="code">Code</label>
+    <div *ngIf="!loaded; else Loaded">
+        <div class="text-center col-lg-4 offset-lg-4 col-12">
+            <div class="form-floating">
+                <input type="password" name="code" [(ngModel)]="code" class="form-control" id="code" placeholder="Code">
+                <label for="code">Code</label>
+            </div>
+            <button class="btn btn-primary mt-3" title="Load" (click)="load()" [ngClass]="{disabled:code==''}" >
+                <span *ngIf="!loading; else Loading"><i class="bi bi-cloud-arrow-down"></i></span>
+            </button>
         </div>
-        <button class="btn btn-primary mt-3" (click)="load()">Load</button>
+        
+        <div class="border shadow p-5 m-5">
+            <div class="lead">Code based persistent encrypted data storage.</div>
+            <p>
+                Use a unique code to store your message. The code is hashed before storage, and the message is AES
+                encrypted. Use the same code again to retrieve the message.
+            </p>
+            <p>
+                Without the right code, the message cannot be found or read.
+            </p>
+        </div>
     </div>
-    
-    <div *ngIf="loaded">
-        <textarea name="data" id="data" cols="80" rows="10" [(ngModel)]="data"></textarea><br>
-        <button class="btn btn-primary" (click)="save()">Save</button>
-        <button class="btn btn-danger" (click)="delete()">Delete</button>
-    </div>
-
-    <div *ngIf="saved" class="alert alert-success">
-        Saved.
-    </div>
-    <div *ngIf="deleted" class="alert alert-danger">
-        Deleted.
-    </div>
+        
 </div>
+
+<ng-template #Saving>
+    Saving
+    <div class="spinner-border  spinner-border-sm text-info" role="status">
+        <span class="visually-hidden">Saving...</span>
+    </div>
+</ng-template>
+
+<ng-template #Deleting>
+    Deleting
+    <div class="spinner-border  spinner-border-sm text-info" role="status">
+        <span class="visually-hidden">Deleting...</span>
+    </div>
+</ng-template>
+
+<ng-template #Loading>
+    Loading
+    <div class="spinner-border  spinner-border-sm text-info" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</ng-template>
+
+<ng-template #Loaded>
+    <div>
+        <textarea name="data" id="data" cols="80" rows="10" [(ngModel)]="data"></textarea><br>
+        <button class="btn btn-primary" (click)="save()" title="Save" [ngClass]="{disabled:data==''}">
+            <span *ngIf="!saving; else Saving"><i class="bi bi-cloud-upload"></i></span>
+        </button>
+        <button class="btn btn-danger" (click)="delete()" title="Delete">
+            <span *ngIf="!deleting; else Deleting"><i class="bi bi-trash"></i></span>
+        </button>
+    </div>
+</ng-template>
