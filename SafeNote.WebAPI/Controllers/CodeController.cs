@@ -21,7 +21,7 @@ namespace SafeNote.WebAPI.Controllers
         [ProducesResponseType(200, Type=typeof(string))]
         public async Task<IActionResult> Get([FromRoute] string code)
         {
-            var id = Utils.Hash(code);
+            var id = BuildId(code);
 
             var rec = await _context.LoadAsync<CodeNote>(id);
             if (rec == null) return Ok("");
@@ -31,10 +31,12 @@ namespace SafeNote.WebAPI.Controllers
             return Ok(dec);
         }
 
+        private static string BuildId(string code) => "code:" + Utils.Hash(code);
+
         [HttpPut("{code}")]
         public async Task<IActionResult> Put([FromRoute] string code, [FromBody] CodeData data)
         {
-            var id = Utils.Hash(code);
+            var id = BuildId(code);
 
             var rec = await _context.LoadAsync<CodeNote>(id) ?? new CodeNote();
 
@@ -53,7 +55,7 @@ namespace SafeNote.WebAPI.Controllers
         [HttpDelete("{code}")]
         public async Task<IActionResult> Delete([FromRoute] string code)
         {
-            var id = Utils.Hash(code);
+            var id = BuildId(code);
 
             await _context.DeleteAsync<CodeNote>(id);
 

@@ -70,17 +70,10 @@ namespace SafeNote.WebAPI.Controllers
 
         private string BuildId(byte[] iv, byte[] key)
         {
-            using var hash = SHA256.Create();
-
             using var ms = new MemoryStream();
-
-            using (var cs = new CryptoStream(ms, hash, CryptoStreamMode.Write))
-            {
-                cs.Write(iv, 0, iv.Length);
-                cs.Write(key, 0, key.Length);
-            }
-
-            return Convert.ToBase64String(ms.ToArray());
+            ms.Write(iv, 0, iv.Length);
+            ms.Write(key, 0, key.Length);
+            return "long:" + Utils.Hash(ms.ToArray());
         }
 
         string Encode(byte[] data)

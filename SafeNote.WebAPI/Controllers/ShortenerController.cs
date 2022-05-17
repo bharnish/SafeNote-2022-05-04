@@ -25,7 +25,7 @@ namespace SafeNote.WebAPI.Controllers
         {
             var id = readData.Id;
 
-            var key = Hash(id);
+            var key = BuildId(id);
 
             var rec = await _context.LoadAsync<ShortenerRecord>(key);
             if (rec == null) return NotFound();
@@ -45,7 +45,7 @@ namespace SafeNote.WebAPI.Controllers
 
             var rec = new ShortenerRecord
             {
-                Id = Hash(password),
+                Id = BuildId(password),
                 Data = enc,
                 Salt = salt
             };
@@ -55,14 +55,7 @@ namespace SafeNote.WebAPI.Controllers
             return Ok(password);
         }
 
-        string Hash(string data)
-        {
-            using var sha = SHA256.Create();
-
-            var hash = sha.ComputeHash(Decode(data));
-
-            return Encode(hash);
-        }
+        string BuildId(string data) => "short:" + Utils.Hash(data);
 
         string Decrypt(string data, string password, string salt)
         {

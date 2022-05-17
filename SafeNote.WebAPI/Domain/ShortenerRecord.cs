@@ -3,10 +3,10 @@ using Amazon.DynamoDBv2.DataModel;
 
 namespace SafeNote.WebAPI.Domain
 {
-    [DynamoDBTable("urlshortener-2022-05-11")]
+    [DynamoDBTable("safenote-2022-05-04")]
     public class ShortenerRecord
     {
-        [DynamoDBHashKey("id")]
+        [DynamoDBHashKey]
         public string Id { get; set; }
 
         public string Data { get; set; }
