@@ -16,29 +16,33 @@ export class CodeViewComponent implements OnInit {
   saving : boolean = false;
   deleting : boolean = false;
   loading : boolean = false;
+  isError = false;
 
   ngOnInit(): void {
   }
 
   load() { 
     this.loading = true;
-    this.svc.getApiCodeCode(this.code).subscribe(x => {
+    this.svc.postApiCode({code: this.code}).subscribe(x => {
       this.data = x;
       this.loaded = true;
+      this.loading = false;
+    },e => {
+      this.isError = true;
       this.loading = false;
     });
   }
 
   save() {
     this.saving = true;
-    this.svc.putApiCodeCode({ code : this.code, body : { data: this.data }}).subscribe(x => {
+    this.svc.putApiCode({code : this.code, data: this.data }).subscribe(x => {
       this.saving = false;
     });
   }
 
   delete()  {
     this.deleting = true;
-    this.svc.deleteApiCodeCode(this.code).subscribe(x => {
+    this.svc.postApiCodeDelete({code:this.code}).subscribe(x => {
       this.deleting = false;
     });
   }

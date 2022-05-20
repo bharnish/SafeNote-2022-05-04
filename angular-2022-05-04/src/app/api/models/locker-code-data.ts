@@ -1,5 +1,5 @@
 /* tslint:disable */
-export interface CodeData {
+export interface LockerCodeData {
   code?: string;
   data?: string;
 }

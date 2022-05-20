@@ -11,6 +11,8 @@ import { NoteViewComponent } from './note-view/note-view.component';
 import { AboutComponent } from './about/about.component';
 import { ShortViewComponent } from './short-view/short-view.component';
 import { CodeViewComponent } from './code-view/code-view.component';
+import { LockerComponent } from './locker/locker.component';
+import { LockerViewComponent } from './locker-view/locker-view.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { CodeViewComponent } from './code-view/code-view.component';
     NoteViewComponent,
     AboutComponent,
     ShortViewComponent,
-    CodeViewComponent
+    CodeViewComponent,
+    LockerComponent,
+    LockerViewComponent
   ],
   imports: [
     BrowserModule,

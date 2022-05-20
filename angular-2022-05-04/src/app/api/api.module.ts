@@ -5,6 +5,7 @@ import { ApiConfiguration, ApiConfigurationInterface } from './api-configuration
 
 import { CodeService } from './services/code.service';
 import { CryptoService } from './services/crypto.service';
+import { LockerService } from './services/locker.service';
 import { ShortenerService } from './services/shortener.service';
 
 /**
@@ -22,6 +23,7 @@ import { ShortenerService } from './services/shortener.service';
     ApiConfiguration,
     CodeService,
     CryptoService,
+    LockerService,
     ShortenerService
   ],
 })

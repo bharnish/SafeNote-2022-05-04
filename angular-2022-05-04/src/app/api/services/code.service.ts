@@ -8,6 +8,7 @@ import { Observable as __Observable } from 'rxjs';
 import { map as __map, filter as __filter } from 'rxjs/operators';
 
 import { CodeData } from '../models/code-data';
+import { CodePostData } from '../models/code-post-data';
 @Injectable({
   providedIn: 'root',
 })
@@ -15,6 +16,9 @@ class CodeService extends __BaseService {
   static readonly getApiCodeCodePath = '/api/Code/{code}';
   static readonly putApiCodeCodePath = '/api/Code/{code}';
   static readonly deleteApiCodeCodePath = '/api/Code/{code}';
+  static readonly postApiCodePath = '/api/Code';
+  static readonly putApiCodePath = '/api/Code';
+  static readonly postApiCodeDeletePath = '/api/Code/delete';
 
   constructor(
     config: __Configuration,
@@ -132,6 +136,110 @@ class CodeService extends __BaseService {
    */
   deleteApiCodeCode(code: string): __Observable<null> {
     return this.deleteApiCodeCodeResponse(code).pipe(
+      __map(_r => _r.body as null)
+    );
+  }
+
+  /**
+   * @param body undefined
+   * @return Success
+   */
+  postApiCodeResponse(body?: CodePostData): __Observable<__StrictHttpResponse<string>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    __body = body;
+    let req = new HttpRequest<any>(
+      'POST',
+      this.rootUrl + `/api/Code`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'text'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<string>;
+      })
+    );
+  }
+  /**
+   * @param body undefined
+   * @return Success
+   */
+  postApiCode(body?: CodePostData): __Observable<string> {
+    return this.postApiCodeResponse(body).pipe(
+      __map(_r => _r.body as string)
+    );
+  }
+
+  /**
+   * @param body undefined
+   */
+  putApiCodeResponse(body?: CodeData): __Observable<__StrictHttpResponse<null>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    __body = body;
+    let req = new HttpRequest<any>(
+      'PUT',
+      this.rootUrl + `/api/Code`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<null>;
+      })
+    );
+  }
+  /**
+   * @param body undefined
+   */
+  putApiCode(body?: CodeData): __Observable<null> {
+    return this.putApiCodeResponse(body).pipe(
+      __map(_r => _r.body as null)
+    );
+  }
+
+  /**
+   * @param body undefined
+   */
+  postApiCodeDeleteResponse(body?: CodeData): __Observable<__StrictHttpResponse<null>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    __body = body;
+    let req = new HttpRequest<any>(
+      'POST',
+      this.rootUrl + `/api/Code/delete`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<null>;
+      })
+    );
+  }
+  /**
+   * @param body undefined
+   */
+  postApiCodeDelete(body?: CodeData): __Observable<null> {
+    return this.postApiCodeDeleteResponse(body).pipe(
       __map(_r => _r.body as null)
     );
   }

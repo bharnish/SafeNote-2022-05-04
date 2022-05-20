@@ -1,0 +1,21 @@
+<div class="container">
+    <div *ngIf="loaded;else Loading">
+        <textarea name="data" id="data" cols="80" rows="10" [(ngModel)]="data"></textarea><br>
+        <button class="btn btn-primary" (click)="save()" title="Save" [ngClass]="{disabled:data==''}">
+            <span *ngIf="!saving; else Saving"><i class="bi bi-cloud-upload"></i></span>
+        </button>
+        <button class="btn btn-danger" (click)="delete()" title="Delete">
+            <span *ngIf="!deleting; else Deleting"><i class="bi bi-trash"></i></span>
+        </button>
+    </div>
+</div>
+
+<ng-template #Loading>
+    Loading...
+</ng-template>
+<ng-template #Saving>
+    Saving...
+</ng-template>
+<ng-template #Deleting>
+    Deleting...
+</ng-template>

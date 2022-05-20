@@ -8,7 +8,11 @@
             <button class="btn btn-primary mt-3" title="Load" (click)="load()" [ngClass]="{disabled:code==''}" >
                 <span *ngIf="!loading; else Loading"><i class="bi bi-cloud-arrow-down"></i></span>
             </button>
+            <div class="alert alert-danger" *ngIf="isError">
+                Error.
+            </div>
         </div>
+
         
         <div class="border shadow p-5 m-5">
             <div class="lead">Code based persistent encrypted data storage.</div>
